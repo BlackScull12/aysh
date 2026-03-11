@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Chat</title>
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="container">
+
+<div class="users">
+<h3>Users</h3>
+<div id="usersList"></div>
+</div>
+
+<div class="chat">
+
+<div class="chat-header">
+<h3 id="chatName">Select a user</h3>
+<button id="callBtn">📞</button>
+</div>
+
+<div id="messages" class="messages"></div>
+
+<div class="send-box">
+<input id="messageInput" placeholder="Type message">
+<button id="sendBtn">Send</button>
+</div>
+
+</div>
+
+</div>
+
+<script type="module" src="firebase.js"></script>
+<script type="module" src="users.js"></script>
+<script type="module" src="chat.js"></script>
+
+</body>
+</html>
