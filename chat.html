@@ -38,5 +38,29 @@
 <script type="module" src="users.js"></script>
 <script type="module" src="chat.js"></script>
 
+<script>
+
+const heartsContainer = document.getElementById("hearts");
+
+function createHeart(){
+const heart = document.createElement("div");
+
+heart.classList.add("heart");
+heart.innerHTML="❤️";
+
+heart.style.left=Math.random()*100+"%";
+heart.style.fontSize=(10+Math.random()*30)+"px";
+
+heartsContainer.appendChild(heart);
+
+setTimeout(()=>{
+heart.remove();
+},6000);
+}
+
+setInterval(createHeart,300);
+
+</script>
+  
 </body>
 </html>
