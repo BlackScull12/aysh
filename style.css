@@ -1,90 +1,128 @@
+/* GENERAL PAGE STYLE */
 body{
-font-family:Arial;
-margin:0;
-background:#111;
-color:white;
+font-family: Arial, sans-serif;
+margin: 0;
+background: #111;
+color: white;
+overflow: hidden;
 }
 
+/* LOGIN PAGE */
 .login-box{
-text-align:center;
-margin-top:200px;
+text-align: center;
+margin-top: 200px;
 }
 
 button{
-padding:10px;
-cursor:pointer;
+padding: 10px;
+cursor: pointer;
+border: none;
 }
 
+/* MAIN LAYOUT */
 .container{
-display:flex;
-height:100vh;
+display: flex;
+height: 100vh;
 }
 
+/* USERS PANEL */
 .users{
-width:30%;
-background:#1b1b1b;
-padding:20px;
-overflow:auto;
+width: 30%;
+background: #1b1b1b;
+padding: 20px;
+overflow-y: auto;
 }
 
+/* CHAT AREA */
 .chat{
-width:70%;
-display:flex;
-flex-direction:column;
+width: 70%;
+display: flex;
+flex-direction: column;
 }
 
+/* CHAT HEADER */
 .chat-header{
-display:flex;
-justify-content:space-between;
-background:#222;
-padding:15px;
+display: flex;
+justify-content: space-between;
+align-items: center;
+background: #222;
+padding: 15px;
 }
 
+/* MESSAGE AREA */
 .messages{
-flex:1;
-overflow:auto;
-padding:20px;
+flex: 1;
+overflow-y: auto;
+padding: 20px;
+display: flex;
+flex-direction: column;
 }
 
+/* SEND MESSAGE BOX */
 .send-box{
-display:flex;
-padding:10px;
-background:#222;
+display: flex;
+padding: 10px;
+background: #222;
 }
 
-body{
-overflow:hidden;
+.send-box input{
+flex: 1;
+padding: 10px;
+border: none;
+outline: none;
 }
 
+/* CHAT BUBBLES */
+.message{
+max-width: 60%;
+padding: 10px 14px;
+margin: 8px 0;
+border-radius: 20px;
+font-size: 14px;
+word-wrap: break-word;
+}
+
+/* YOUR MESSAGE */
+.sent{
+background: white;
+color: black;
+margin-left: auto;
+border-bottom-right-radius: 5px;
+}
+
+/* OTHER PERSON MESSAGE */
+.received{
+background: #ff4d6d;
+color: white;
+margin-right: auto;
+border-bottom-left-radius: 5px;
+}
+
+/* HEARTS BACKGROUND */
 .hearts{
-position:fixed;
-width:100%;
-height:100%;
-top:0;
-left:0;
-pointer-events:none;
-z-index:-1;
+position: fixed;
+width: 100%;
+height: 100%;
+top: 0;
+left: 0;
+pointer-events: none;
+z-index: -1;
 }
 
 .heart{
-position:absolute;
-color:#ff4d6d;
-font-size:20px;
+position: absolute;
+color: #ff4d6d;
+font-size: 20px;
 animation: floatUp 6s linear infinite;
 }
 
 @keyframes floatUp{
 0%{
-transform:translateY(100vh) scale(0.5);
-opacity:1;
+transform: translateY(100vh) scale(0.5);
+opacity: 1;
 }
 100%{
-transform:translateY(-10vh) scale(1.5);
-opacity:0;
+transform: translateY(-10vh) scale(1.5);
+opacity: 0;
 }
-}
-
-.send-box input{
-flex:1;
-padding:10px;
 }
