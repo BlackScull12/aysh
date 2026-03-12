@@ -16,29 +16,18 @@ const messagesDiv = document.getElementById("messages");
 const sendBtn = document.getElementById("sendBtn");
 const input = document.getElementById("messageInput");
 
-let currentUser = null;
-
-/* WAIT FOR USER LOGIN */
 onAuthStateChanged(auth,(user)=>{
 
 if(!user){
-messagesDiv.innerHTML="Please login.";
+messagesDiv.innerHTML="Login first.";
 return;
 }
-
-currentUser = user;
-
-startChat();
-
-});
-
-function startChat(){
 
 const chatUser = localStorage.getItem("chatUser");
 const chatName = localStorage.getItem("chatName");
 
 if(!chatUser){
-messagesDiv.innerHTML="Select a user to start chatting.";
+messagesDiv.innerHTML="Select a user to chat.";
 return;
 }
 
@@ -46,9 +35,9 @@ document.getElementById("chatName").innerText = chatName;
 
 /* CREATE UNIQUE CHAT ID */
 const chatId =
-currentUser.uid < chatUser
-? currentUser.uid + chatUser
-: chatUser + currentUser.uid;
+user.uid < chatUser
+? user.uid + chatUser
+: chatUser + user.uid;
 
 /* LOAD MESSAGES IN REAL TIME */
 const q = query(
@@ -65,10 +54,9 @@ snapshot.forEach((doc)=>{
 const msg = doc.data();
 
 const div = document.createElement("div");
-
 div.classList.add("message");
 
-if(msg.sender === currentUser.uid){
+if(msg.sender === user.uid){
 div.classList.add("sent");
 }else{
 div.classList.add("received");
@@ -80,49 +68,41 @@ messagesDiv.appendChild(div);
 
 });
 
-/* AUTO SCROLL TO NEW MESSAGE */
+/* AUTO SCROLL */
 messagesDiv.scrollTop = messagesDiv.scrollHeight;
 
 });
 
-/* SEND MESSAGE BUTTON */
-sendBtn.onclick = ()=> sendMessage(chatId);
-
-/* ENTER KEY SEND */
-input.addEventListener("keydown",(event)=>{
-
-if(event.key === "Enter"){
-event.preventDefault();
-sendMessage(chatId);
-}
-
-});
-
-}
-
 /* SEND MESSAGE FUNCTION */
-async function sendMessage(chatId){
+async function sendMessage(){
 
 const text = input.value.trim();
 
 if(text === "") return;
 
-try{
-
 await addDoc(collection(db,"chats",chatId,"messages"),{
 
 text:text,
-sender:currentUser.uid,
+sender:user.uid,
 time:Date.now()
 
 });
 
 input.value="";
 
-}catch(err){
-
-console.error("Message failed:",err);
-
 }
 
+/* SEND BUTTON */
+sendBtn.onclick = sendMessage;
+
+/* ENTER KEY */
+input.addEventListener("keydown",(event)=>{
+
+if(event.key === "Enter"){
+event.preventDefault();
+sendMessage();
 }
+
+});
+
+});
