@@ -1,31 +1,39 @@
-import { db, auth } from "./firebase.js";
+import { db,auth } from "./firebase.js";
 
 import {
 collection,
 getDocs
 } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
-const usersList = document.getElementById("usersList");
+const usersList=document.getElementById("usersList");
 
 async function loadUsers(){
 
-const querySnapshot = await getDocs(collection(db,"users"));
+const snapshot=await getDocs(collection(db,"users"));
 
-querySnapshot.forEach((docu)=>{
+usersList.innerHTML="";
 
-const user = docu.data();
+snapshot.forEach((docu)=>{
 
-if(docu.id === auth.currentUser?.uid) return;
+const user=docu.data();
 
-const div = document.createElement("div");
+if(auth.currentUser && docu.id===auth.currentUser.uid) return;
 
-div.innerText = user.name;
+const div=document.createElement("div");
 
-div.onclick = ()=>{
+div.innerText=user.name;
+
+div.style.padding="10px";
+div.style.cursor="pointer";
+
+div.onclick=()=>{
+
 localStorage.setItem("chatUser",docu.id);
 localStorage.setItem("chatName",user.name);
+
 location.reload();
-}
+
+};
 
 usersList.appendChild(div);
 
